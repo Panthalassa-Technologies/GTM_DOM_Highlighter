@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Tag Manager DOM Highlighter</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+    body {
+      width: 240px;
+      padding: 5px;
+      background-color: #FFFFFF;
+      font-family: Arial, sans-serif;
+      color: #1C2432;
+      text-align: center;
+    }
+    img {
+      width: 50%;
+      max-width: 200px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .header img {
+      width: 30px;
+      height: auto;
+      margin-left: 10px;
+      cursor: pointer; /* Add cursor pointer for the image */
+    }
+    .header-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+    }
+    .button-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 10px;
+    }
+    .btn {
+      display: inline-block;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+      user-select: none;
+      background-color: transparent;
+      border: 1px solid transparent;
+      padding: 0.25rem 0.5rem;
+      font-size: 13px;
+      line-height: 1.5;
+      border-radius: 0.25rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .btn-primary {
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-primary:hover {
+      color: #fff;
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+    .btn-secondary {
+      color: #fff;
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+    .btn-secondary:hover {
+      color: #fff;
+      background-color: #5a6268;
+      border-color: #545b62;
+    }
+    .btn-success {
+      color: #fff;
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+    .btn-success:hover {
+      color: #fff;
+      background-color: #218838;
+      border-color: #1e7e34;
+    }
+    .btn-warning {
+      color: #212529;
+      background-color: #ffc107;
+      border-color: #ffc107;
+    }
+    .btn-warning:hover {
+      color: #212529;
+      background-color: #e0a800;
+      border-color: #d39e00;
+    }
+    .btn-danger {
+      color: #fff;
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+    .btn-danger:hover {
+      color: #fff;
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+    input {
+      width: calc(100% - 22px);
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #DDBF84;
+      border-radius: 5px;
+      background-color: #FFFFFF;
+      font-size: 14px;
+      color: #1C2432;
+    }
+    input::placeholder {
+      color: #60666F;
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #151D26;
+    }
+    .instructions {
+      text-align: left;
+      margin-bottom: 20px;
+      font-size: 10px;
+      display: none; /* Hide instructions by default */
+    }
+    .element-list {
+      text-align: left;
+      margin-top: 20px;
+    }
+    .element-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-direction: column; /* Align items vertically */
+      border-bottom: 1px solid #DDBF84; /* Add bottom border */
+      padding-bottom: 10px; /* Add padding to the bottom */
+    }
+    .element-number {
+      font-size: 14px;
+      margin-right: 5px;
+      font-weight: 700;
+    }
+    .element-selector {
+      font-size: 12px;
+      margin-right: 5px;
+      flex-grow: 1;
+    }
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+    }
+    .input-label {
+      font-size: 10px;
+      margin-bottom: 2px;
+      color: #60666F;
+      font-weight: 700;
+    }
+    .element-category,
+    .element-label {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #DDBF84;
+      border-radius: 5px;
+      background-color: #FFFFFF;
+      font-size: 12px;
+      color: #1C2432;
+      box-sizing: border-box;
+    }
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .footer img {
+      width: 40px;
+      height: auto;
+      margin-right: 10px;
+    }
+    .footer-text {
+      font-size: 10px;
+      color: #151D26;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-text">
+      <p>Google Tag Manager DOM Highlighter</p>
+    </div>
+    <img id="help-icon" src="images/question_mark.gif" alt="Help">
+  </div>
+  <div class="instructions" id="instructions">
+    <ol>
+      <li><strong>Click "START"</strong> to begin highlighting elements on the page.</li>
+      <li><strong>Click on any element</strong> you want to track in Google Tag Manager. Each selected element will be outlined in red.</li>
+      <li><strong>Click "UPDATE"</strong> to refresh the list of selected elements.</li>
+      <li><strong>Click "DOWNLOAD"</strong> to download the tracking script for the selected elements.</li>
+      <li><strong>Click "REMOVE ALL"</strong> to clear all highlighted elements.</li>
+      <li><strong>Click "STOP"</strong> to end the element selection process.</li>
+    </ol>
+  </div>
+  <div class="button-container">
+    <button id="startHighlight" class="btn btn-success" title="Start highlighting elements on the page">START</button>
+    <button id="exitHighlight" class="btn btn-danger" title="Stop highlighting elements">STOP</button>
+    <button id="updateList" class="btn btn-primary" title="Update the list of highlighted elements">UPDATE</button>
+    <button id="removeAllHighlights" class="btn btn-secondary" title="Remove all highlighted elements">REMOVE ALL</button>
+    <button id="downloadScript" class="btn btn-warning" title="Download the script for highlighted elements">DOWNLOAD</button>
+  </div>
+  <div class="element-list" id="elementList"></div>
+  <div class="footer">
+    <img src="images/The-Search-Engineers_Cropped.png" alt="The Search Engineers Logo">
+    <div class="footer-text">
+      <p>Copyright © 2024 The Search Engineers. All rights reserved.</p>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
